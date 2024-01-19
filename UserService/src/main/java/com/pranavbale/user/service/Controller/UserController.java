@@ -20,7 +20,7 @@ public class UserController {
     // get the unique user
     @GetMapping("get/{id}")
     private ResponseEntity<User> getUser(@PathVariable UUID id) {
-        return new ResponseEntity<>(userService.getUser(id), HttpStatus.CREATED);
+        return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
     }
 
     // get all users
@@ -32,7 +32,7 @@ public class UserController {
     // create user
     @PostMapping("/create")
     private ResponseEntity<User> createUser(@RequestBody User user) {
-        return new ResponseEntity<>(userService.saveUser(user), HttpStatus.OK);
+        return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
     }
 
     // update user
