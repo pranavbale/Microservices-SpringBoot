@@ -1,7 +1,6 @@
 server:
   port: 8081
 
-
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/Microservices-UserService
@@ -11,3 +10,14 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  application:
+    name: User Service
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8080/eureka

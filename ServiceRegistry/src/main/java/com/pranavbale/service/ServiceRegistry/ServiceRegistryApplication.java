@@ -2,8 +2,10 @@ package com.pranavbale.service.ServiceRegistry;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 
 @SpringBootApplication
+@EnableEurekaServer		// it creates a eureka server in a project
 public class ServiceRegistryApplication {
 
 	public static void main(String[] args) {
