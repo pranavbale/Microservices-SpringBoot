@@ -11,3 +11,14 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
+
+  application:
+    name: HOTEL-SERVICE
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8080/eureka
