@@ -6,6 +6,7 @@ import com.pranavbale.user.service.Entity.User;
 import com.pranavbale.user.service.Repository.UserRepository;
 import com.pranavbale.user.service.Service.UserService;
 import com.pranavbale.user.service.exception.ResourceNotFountException;
+import com.pranavbale.user.service.external.serviceses.HotelService;
 import org.apache.juli.logging.LogFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +29,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    private HotelService hotelService;
 
     private Logger logger  = LoggerFactory.getLogger(UserServiceImpl.class);
 
@@ -57,10 +61,12 @@ public class UserServiceImpl implements UserService {
         List<Rating> ratingList = ratingForUser.stream().map(rating -> {
 
             // api call to hotel service to get the hotel info
-            ResponseEntity<Hotel> hotelResponseEntity = restTemplate.getForEntity("http://HOTEL-SERVICE/hotel/get/" + rating.getHotelId(),  Hotel.class);
-            Hotel hotel = hotelResponseEntity.getBody();
-            logger.info("Response Entity get Status code {}", hotelResponseEntity.getStatusCode());
-            // set the hotel to rating 
+//            ResponseEntity<Hotel> hotelResponseEntity = restTemplate.getForEntity("http://HOTEL-SERVICE/hotel/get/" + rating.getHotelId(),  Hotel.class);
+//            Hotel hotel = hotelResponseEntity.getBody();
+            // by using a Feign client
+            Hotel hotel = hotelService.getHotel(rating.getHotelId());
+//            logger.info("Response Entity get Status code {}", hotelResponseEntity.getStatusCode());
+            // set the hotel to rating
             rating.setHotel(hotel);
             // return a rating
             return rating;
