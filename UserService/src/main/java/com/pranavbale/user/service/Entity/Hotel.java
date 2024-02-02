@@ -1,24 +1,18 @@
 package com.pranavbale.user.service.Entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class Rating {
+public class Hotel {
 
-    private UUID ratingId;
-    private UUID userId;
     private UUID hotelId;
-    private Integer rating;
-    private String feedBack;
-    private Hotel hotel;
-
+    private String name;
+    private String location;
+    private String about;
 }

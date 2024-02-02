@@ -6,6 +6,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Transient;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,5 +26,5 @@ public class User {
     private String about;
 
     @Transient
-    private List<Rating> ratings;
+    private List<Rating> ratings = new ArrayList<>();
 }
