@@ -2,7 +2,9 @@ package com.pranavbale.user.service.Controller;
 
 import com.pranavbale.user.service.Entity.User;
 import com.pranavbale.user.service.Service.UserService;
+import com.pranavbale.user.service.exception.ResourceNotFountException;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,7 @@ public class UserController {
     // in a circuit breaker we add name for configuration
     // in a circuit breaker we use a fallbackMethod if any service is open then this method call and return type must be same
     @GetMapping("get/{id}")
+    @Retry(name = "ratingHotelBreaker")
     @CircuitBreaker(name = "ratingHotelBreaker", fallbackMethod = "ratingHotelFallBack")
     public ResponseEntity<User> getUser(@PathVariable UUID id) {
         return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
@@ -60,14 +63,8 @@ public class UserController {
     // rating hotel fall back method for circuit breaker
     // if any dependent service is open then this function get call
     public ResponseEntity<User> ratingHotelFallBack(UUID id, Exception ex) {
-        logger.info("Fall Back is executed because service is down : ", ex.getMessage());
-        User user = User.builder()
-                .userId(UUID.randomUUID())
-                .name("Dummy Name")
-                .email("dummyemail@gmail.com")
-                .about("The dependent service is down")
-                .build();
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        logger.info("Fall Back is executed because service is down : {} ", ex.getMessage());
+        throw new ResourceNotFountException(ex.getMessage());
     }
 
 }

@@ -54,3 +54,11 @@ resilience4j:
         permitted-number-of-calls-in-half-open-state: 3
         sliding-window-size: 10
         sliding-window-type: count_based
+    circuit-breaker-aspect-order: 1     # then circuit breaker work if retry not work
+  # Retry setting
+  retry:
+    instances:
+      ratingHotelBreaker:
+        max-attempts: 5
+        wait-duration: 10ms
+    retry-aspect-order: 2     # firstly retry will be performed
