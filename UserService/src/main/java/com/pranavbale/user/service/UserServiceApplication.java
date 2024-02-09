@@ -8,7 +8,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableDiscoveryClient		// declare a client
-@EnableFeignClients
+@EnableFeignClients		// use to communicate to other services  
 public class UserServiceApplication {
 
 	public static void main(String[] args) {
