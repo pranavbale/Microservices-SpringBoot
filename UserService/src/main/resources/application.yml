@@ -29,7 +29,7 @@ eureka:
 # actuator setting
 management:
   health:
-    circuitbreakers:
+    circuit-breakers:
       enabled: true
   endpoints:
     web:

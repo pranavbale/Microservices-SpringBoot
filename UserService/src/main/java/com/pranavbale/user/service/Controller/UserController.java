@@ -28,7 +28,7 @@ public class UserController {
     // in a circuit breaker we use a fallbackMethod if any service is open then this method call and return type must be same
     @GetMapping("get/{id}")
     @CircuitBreaker(name = "ratingHotelBreaker", fallbackMethod = "ratingHotelFallBack")
-    private ResponseEntity<User> getUser(@PathVariable UUID id) {
+    public ResponseEntity<User> getUser(@PathVariable UUID id) {
         return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
     }
 
