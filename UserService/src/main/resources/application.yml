@@ -55,6 +55,7 @@ resilience4j:
         sliding-window-size: 10
         sliding-window-type: count_based
     circuit-breaker-aspect-order: 1     # then circuit breaker work if retry not work
+
   # Retry setting
   retry:
     instances:
@@ -62,3 +63,11 @@ resilience4j:
         max-attempts: 5
         wait-duration: 10ms
     retry-aspect-order: 2     # firstly retry will be performed
+
+  # RateLimiter setting
+  ratelimiter:
+    instances:
+      userRateLimiter:
+        limit-refresh-period: 4s
+        limit-for-period: 2
+        timeout-duration: 0s

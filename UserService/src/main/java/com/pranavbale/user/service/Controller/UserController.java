@@ -4,6 +4,7 @@ import com.pranavbale.user.service.Entity.User;
 import com.pranavbale.user.service.Service.UserService;
 import com.pranavbale.user.service.exception.ResourceNotFountException;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.github.resilience4j.retry.annotation.Retry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +32,7 @@ public class UserController {
     @GetMapping("get/{id}")
     @Retry(name = "ratingHotelBreaker")
     @CircuitBreaker(name = "ratingHotelBreaker", fallbackMethod = "ratingHotelFallBack")
+//    @RateLimiter(name = "userRateLimiter", fallbackMethod = "ratingHotelFallBack")
     public ResponseEntity<User> getUser(@PathVariable UUID id) {
         return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
     }
